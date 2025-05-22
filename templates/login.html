@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart Canteen</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        {{if .Error}}
+            <div style="color: #ff6b6b; margin-bottom: 15px; text-align: center;">
+                {{.Error}}
+            </div>
+        {{end}}
+        <form method="POST" action="/login">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit">Login</button><br>
+        </form>
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="/register">Don't have an account? Register here</a>
+        </div>
+        <div style="margin-top: 15px; text-align: center;">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+    </div>
+</body>
+</html>

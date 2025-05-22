@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Smart Canteen Ordering System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/home.css">
+</head>
+<body class="font-inter bg-gray-50">
+
+    <nav class="relative z-20 bg-white shadow-md py-4 rounded-b-lg">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="text-3xl font-extrabold text-orange-500"> <a href="#">Smart Canteen<span class="text-gray-800">.</a></span></div>
+
+            <ul class="hidden md:flex items-center space-x-8 text-gray-700 font-medium">
+                <li><a href="#" class="hover:text-orange-500 transition duration-200">Home</a></li>
+                <li><a href="/register" class="hover:text-orange-500 transition duration-200">Register</a></li>
+                <li><a href="#footer" class="hover:text-orange-500 transition duration-200">About</a></li>
+                <li><a href="/feedback" class="hover:text-orange-500 transition duration-200">Feedback</a></li>
+                <li><a href="#footer" class="hover:text-orange-500 transition duration-200">Contact</a></li>
+            </ul>
+
+            <div class="hidden md:flex items-center space-x-6 text-gray-700">
+                <a href="/login" class="flex items-center hover:text-orange-500 transition duration-200">
+                    <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
+                    Login
+                </a>
+            </div>
+
+            <button class="md:hidden text-gray-700 hover:text-orange-500 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </nav>
+
+    <section class="relative bg-gray-800 min-h-screen flex items-center py-16 md:py-20 overflow-hidden">
+        <div class="hero-bg-shapes"></div>
+        
+        <div class="hero-content-wrapper container mx-auto px-4 flex flex-col lg:flex-row items-center justify-between">
+            <div class="lg:w-1/2 text-center lg:text-left py-12 lg:py-0">
+                <h1 class="text-5xl lg:text-6xl font-extrabold text-gray-100 leading-tight mb-6">
+                    Welcome to<br><span class="text-orange-500">Smart Canteen</span>.
+                </h1>
+                <p style class="text-lg text-gray-300 mb-8 max-w-xl mx-auto lg:mx-0">
+Order your meals quickly and easily with our <br>Smart Ordering System! <br>
+Login or register to continue.                </p>
+                <div class="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 justify-center lg:justify-start">
+                    <div class="relative inline-block text-gray-700 w-full sm:w-auto">
+            
+                    
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+            </div>
+
+            <div class="lg:w-1/2 flex justify-center lg:justify-end mt-12 lg:mt-0 relative min-h-[300px] md:min-h-[400px] lg:min-h-[500px]">
+                <img src="/static/images/food.png" alt="Delicious Pasta Bowl 1" class="relative z-10 w-64 md:w-80 lg:w-96 rounded-full shadow-xl -mr-16 md:-mr-20 lg:-mr-24">
+                <img src="/static/images/food2.png" alt="Delicious Pasta Bowl 2" class="relative z-10 w-64 md:w-80 lg:w-96 rounded-full shadow-xl ml-16 mt-20 md:mt-24 lg:mt-32">
+                            </div>
+        </div>
+    </section>
+<section class="bg-white py-16">
+        <center> <h2 class="text-3xl font-bold">Easy Steps to order</h2></center> <br>
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+            
+            <img src = "/static/images/steps.png" >
+            <div class="flex items-center text-white mb-6 md:mb-0 text-center md:text-left"> </div>
+        </div>
+    </section>
+    <section class="bg-orange-500 py-16">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+            <div class="flex items-center text-white mb-6 md:mb-0 text-center md:text-left">
+                <svg class="w-10 h-10 mr-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <h2 class="text-3xl font-bold">Subscribe To Our Newsletter</h2>
+            </div>
+            <div class="flex w-full md:w-auto max-w-md md:max-w-none mx-auto md:mx-0">
+                <input type="email" placeholder="Your Email" class="py-3 px-6 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-white w-full md:w-64 transition duration-200">
+                <button class="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-3 px-8 rounded-r-lg transition duration-300 ease-in-out transform hover:scale-105">
+                    Subscribe Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <footer class="relative bg-gray-800 text-gray-300 py-16 overflow-hidden" id="footer">
+        <div class="footer-bg-shapes"></div>
+        
+        <div class="relative z-10 container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            <div class="col-span-1 lg:col-span-2 text-center md:text-left">
+                <div class="text-3xl font-extrabold text-orange-500 mb-4"><span class="text-white">About </span>Smart Canteen<span class="text-white">.</span></div>
+                <p class="text-sm leading-relaxed mb-6">
+The Smart Canteen Ordering System is a modern, web-based application developed for institutional campus canteens and cafeterias.It enables users to browse categorized menus, view item descriptions, and place orders seamlessly. The platform features intuitive internal navigation, organized menu sections, and a clean user interface optimized for quick selection. Built using the Go programming language for the backend, and HTML, Tailwind CSS and JavaScript for the frontend, it ensures simplicity, speed, and maintainability. The platform eliminates the need for physical queues and manual order taking, ultimately enhancing convenience, operational efficiency and the overall experience of a campus cafeteria. 
+ 
+                   </p>
+                <div class="flex space-x-4 justify-center md:justify-start">
+                </div>
+            </div>
+            <div class="text-center md:text-left">
+                <h4 class="text-white font-bold mb-4 text-lg">Links</h4>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-orange-500 transition duration-200">Home</a></li>
+                    <li><a href="/login" class="hover:text-orange-500 transition duration-200">Login</a></li>
+                    <li><a href="/register" class="hover:text-orange-500 transition duration-200">Register</a></li>
+                    <li><a href="/feedback" class="hover:text-orange-500 transition duration-200">Feedback</a></li>
+                </ul>
+            </div>
+
+           
+            <div class="text-center md:text-left">
+                <h4 class="text-white font-bold mb-4 text-lg">Contact Us</h4>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start justify-center md:justify-start">
+                        <svg class="w-5 h-5 mr-2 mt-1 text-orange-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path></svg>
+                        <span>D Block, Ground Floor, Guru Gobind Singh Indraprastha University
+East Delhi Campus, Surajmal Vihar, Delhi-110092
+</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start">
+                        <svg class="w-5 h-5 mr-2 text-orange-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.103 6.103l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                        <span>+000 123 456 789</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start">
+                        <svg class="w-5 h-5 mr-2 text-orange-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.774a11.037 11.037 0 006.103 6.103l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg>
+                        <span>+000 12 48 57 665</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start">
+                        <svg class="w-5 h-5 mr-2 text-orange-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                        <span>services@smartcanteen</span>
+                    </li>
+                    <li class="flex items-center justify-center md:justify-start">
+                        <svg class="w-5 h-5 mr-2 text-orange-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                        <span>info@smartcanteen </span>
+                    </li>
+                </ul>
+
+            </div>
+             
+             <div class="text-center md:text-left">
+                <h4 class="text-white font-bold mb-4 text-lg">Google Maps</h4>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3500.8401021743816!2d77.3006147!3d28.664506!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfb006109ff83%3A0x919bc11594562fe0!2sGGSIPU%20EDC%20Canteen!5e0!3m2!1sen!2sin!4v1747915448660!5m2!1sen!2sin" width="280" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+        <div class="text-center text-gray-500 text-sm mt-12 pt-8 border-t border-gray-700 relative z-10">
+            Copyright &copy; 2025 <span class="text-orange-500 font-semibold">Smart Canteen.</span> All rights reserved.
+        </div>
+        <button class="fixed bottom-8 right-8 bg-orange-500 hover:bg-orange-600 text-white p-3 rounded-full shadow-lg z-50 transition duration-300 ease-in-out transform hover:scale-110" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+        </button>
+    </footer>
+
+</body>
+</html>

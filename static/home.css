@@ -1,0 +1,73 @@
+ @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: Century Gothic, CenturyGothic, AppleGothic, sans-serif
+        }
+
+        /* Custom background shape for the hero section */
+        .hero-bg-shapes {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 70%; /* Adjust as needed for the orange background */
+            height: 100%;
+            background-color: #FB923C; /* Orange-500 */
+            border-bottom-left-radius: 50%; /* Creates the curved shape */
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .hero-bg-shapes::before {
+            content: '';
+            position: absolute;
+            top: -20%; /* Adjust position of the lighter orange curve */
+            right: -20%; /* Adjust position of the lighter orange curve */
+            width: 120%;
+            height: 120%;
+            background-color: #FDBA74; /* Orange-400, slightly lighter */
+            border-bottom-left-radius: 50%;
+            transform: rotate(15deg); /* Rotate for a more dynamic look */
+            z-index: 1; /* Ensure it's above the main orange but below content */
+        }
+
+        /* Ensure content is above the background shapes */
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Custom background shapes for the footer */
+        .footer-bg-shapes {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .footer-bg-shapes::before {
+            content: '';
+            position: absolute;
+            bottom: -50px; /* Position the bottom circle */
+            right: 0;
+            width: 200px; /* Size of the circle */
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.05); /* Light, transparent circle */
+            border-radius: 50%;
+            transform: rotate(-30deg); /* Rotate for visual interest */
+            pointer-events: none; /* Ensure it doesn't interfere with clicks */
+            z-index: 0;
+        }
+        .footer-bg-shapes::after {
+            content: '';
+            position: absolute;
+            bottom: 10px; /* Position the smaller circle */
+            left: 100px;
+            width: 80px; /* Size of the smaller circle */
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.05); /* Light, transparent circle */
+            border-radius: 50%;
+            transform: rotate(60deg); /* Rotate for visual interest */
+            pointer-events: none;
+            z-index: 0;
+        }

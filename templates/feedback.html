@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Canteen Feedback</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: flex-end;
+            margin: 10px 0;
+        }
+        
+        .star-rating input {
+            display: none;
+        }
+        
+        .star-rating label {
+            font-size: 2em;
+            color: #ddd;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+            color: #ffcc00;
+        }
+        
+        .feedback-group {
+            margin: 20px 0;
+        }
+        
+        .success-message {
+            color: green;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            color: red;
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>We value your feedback!</h2>
+        <p>Please take a moment to share your thoughts with us.</p>
+
+        {{if .Success}}
+            <div class="success-message">{{.Success}}</div>
+        {{end}}
+        
+        {{if .Error}}
+            <div class="error-message">{{.Error}}</div>
+        {{end}}
+
+        <form action="/submit_feedback" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <div class="feedback-group">
+                <label>How would you rate the food quality?</label>
+                <div class="star-rating">
+                    <input type="radio" id="food-star5" name="food_quality" value="5">
+                    <label for="food-star5">★</label>
+                    <input type="radio" id="food-star4" name="food_quality" value="4">
+                    <label for="food-star4">★</label>
+                    <input type="radio" id="food-star3" name="food_quality" value="3">
+                    <label for="food-star3">★</label>
+                    <input type="radio" id="food-star2" name="food_quality" value="2">
+                    <label for="food-star2">★</label>
+                    <input type="radio" id="food-star1" name="food_quality" value="1">
+                    <label for="food-star1">★</label>
+                </div>
+            </div>
+
+            <div class="feedback-group">
+                <label>How would you rate our service?</label>
+                <div class="star-rating">
+                    <input type="radio" id="service-star5" name="service" value="5">
+                    <label for="service-star5">★</label>
+                    <input type="radio" id="service-star4" name="service" value="4">
+                    <label for="service-star4">★</label>
+                    <input type="radio" id="service-star3" name="service" value="3">
+                    <label for="service-star3">★</label>
+                    <input type="radio" id="service-star2" name="service" value="2">
+                    <label for="service-star2">★</label>
+                    <input type="radio" id="service-star1" name="service" value="1">
+                    <label for="service-star1">★</label>
+                </div>
+            </div>
+
+            <label for="comments">Additional Comments:</label>
+            <textarea id="comments" name="comments" rows="4" placeholder="Your feedback (optional)"></textarea> <br>
+
+            <button type="submit" style="margin-top: 20px;">Submit Feedback</button>
+        </form>
+        <br>
+        <a href="/home"> Home </a>
+    </div>
+</body>
+</html>

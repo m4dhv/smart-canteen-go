@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Smart Canteen</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .cart-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background-color: #404347;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            color: white;
+        }
+        .cart-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #555;
+        }
+        .cart-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .cart-item-details {
+            flex-grow: 1;
+        }
+        .cart-item-name {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .cart-item-price {
+            font-size: 1.1em;
+            color: #48a8ff;
+        }
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+            flex-shrink: 0;
+        }
+        .cart-item-quantity button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .cart-item-quantity button:hover {
+            background-color: #e55353;
+        }
+        .cart-item-quantity input {
+            width: 50px;
+            text-align: center;
+            background-color: #323639;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            padding: 8px 0;
+            margin: 0 10px;
+            font-size: 1em;
+        }
+        .cart-total {
+            text-align: right;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #555;
+        }
+        .checkout-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            width: fit-content;
+            margin: 30px auto 0;
+        }
+        .checkout-button:hover {
+            background-color: #45a049;
+        }
+        .empty-cart-message {
+            text-align: center;
+            font-style: italic;
+            color: #ccc;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="max-width: 1200px;">
+        <div class="header-section">
+            <div>
+                <h2>Your Shopping Cart</h2>
+            </div>
+            <div>
+                <a href="/dashboard" style="margin-right:20px">
+                    Continue Shopping
+                </a>
+                <a href="/logout" style="background-color: #d73027; border-color: #d73027;">Logout</a>
+            </div>
+        </div>
+
+        <div class="cart-container">
+            <div id="cart-items-container">
+                </div>
+            
+            <div class="cart-total">
+                Total: <span id="cart-total-amount">Rs 0.00</span>
+            </div>
+
+            <button class="checkout-button" id="checkout-btn">Proceed to Checkout</button>
+            <p id="empty-cart-message" class="empty-cart-message" style="display: none;">Your cart is empty. Add some items from the menu!</p>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cartItems = [
+                {
+                    id: 'coke',
+                    name: 'Coca Cola',
+                    price: 20.00,
+                    imageUrl: 'coke.jpeg', // Relative path to your image
+                    quantity: 1
+                },
+                {
+                    id: 'lays',
+                    name: 'Lay\'s  Magic Masala Potato chips',
+                    price: 20.00,
+                    imageUrl: 'lays.jpg', // Relative path to your image
+                    quantity: 1
+                }
+            ];
+
+            const cartItemsContainer = document.getElementById('cart-items-container');
+            const cartTotalAmount = document.getElementById('cart-total-amount');
+            const emptyCartMessage = document.getElementById('empty-cart-message');
+            const checkoutButton = document.getElementById('checkout-btn');
+
+            function renderCart() {
+                cartItemsContainer.innerHTML = ''; // Clear existing items
+                let total = 0;
+
+                if (cartItems.length === 0) {
+                    emptyCartMessage.style.display = 'block';
+                    checkoutButton.style.display = 'none';
+                } else {
+                    emptyCartMessage.style.display = 'none';
+                    checkoutButton.style.display = 'block';
+                    cartItems.forEach(item => {
+                        const itemElement = document.createElement('div');
+                        itemElement.classList.add('cart-item');
+                        itemElement.innerHTML = `
+                            <div class="cart-item-image">
+                                <img src="/static/images/${item.imageUrl}" alt="${item.name}">
+                            </div>
+                            <div class="cart-item-details">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">Rs ${item.price.toFixed(2)}</div>
+                            </div>
+                            <div class="cart-item-quantity">
+                                <button data-id="${item.id}" data-action="decrease">-</button>
+                                <input type="number" value="${item.quantity}" min="1" data-id="${item.id}" class="quantity-input">
+                                <button data-id="${item.id}" data-action="increase">+</button>
+                            </div>
+                        `;
+                        cartItemsContainer.appendChild(itemElement);
+
+                        total += item.price * item.quantity;
+                    });
+                }
+                cartTotalAmount.textContent = `Rs ${total.toFixed(2)}`;
+            }
+
+            function updateQuantity(id, action) {
+                const itemIndex = cartItems.findIndex(item => item.id === id);
+                if (itemIndex > -1) {
+                    if (action === 'increase') {
+                        cartItems[itemIndex].quantity++;
+                    } else if (action === 'decrease') {
+                        if (cartItems[itemIndex].quantity > 1) {
+                            cartItems[itemIndex].quantity--;
+                        } else {
+                            // If quantity is 1 and decrease is pressed, remove item
+                            cartItems.splice(itemIndex, 1);
+                        }
+                    }
+                    renderCart();
+                }
+            }
+
+            // Event delegation for quantity buttons and input
+            cartItemsContainer.addEventListener('click', function(event) {
+                const button = event.target.closest('button');
+                if (button) {
+                    const id = button.dataset.id;
+                    const action = button.dataset.action;
+                    if (id && action) {
+                        updateQuantity(id, action);
+                    }
+                }
+            });
+
+            cartItemsContainer.addEventListener('change', function(event) {
+                const input = event.target.closest('.quantity-input');
+                if (input) {
+                    const id = input.dataset.id;
+                    const newQuantity = parseInt(input.value, 10);
+                    const itemIndex = cartItems.findIndex(item => item.id === id);
+                    if (itemIndex > -1 && !isNaN(newQuantity) && newQuantity >= 0) {
+                        if (newQuantity === 0) {
+                            cartItems.splice(itemIndex, 1); // Remove item if quantity is 0
+                        } else {
+                            cartItems[itemIndex].quantity = newQuantity;
+                        }
+                        renderCart();
+                    } else if (newQuantity < 0) {
+                        // Prevent negative quantities
+                        input.value = cartItems[itemIndex] ? cartItems[itemIndex].quantity : 1;
+                    }
+                }
+            });
+
+            // Initial render of the cart
+            renderCart();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #404347;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header-section h2 {
+            color: white;
+            margin: 0;
+        }
+
+        .header-section a {
+            background-color: #d73027;
+            border-color: #d73027;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .header-section a:hover {
+            background-color: #c22e25;
+            border-color: #c22e25;
+        }
+
+        .content-section {
+            display: flex;
+            gap: 30px;
+        }
+
+        .products-section, .users-section, .feedback-section {
+            flex: 1;
+            background-color: #2a2d30;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .products-header, .users-header, .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .products-header h3, .users-header h3, .feedback-header h3 {
+            color: white;
+            margin: 0;
+        }
+
+        .products-header a {
+            background-color: #48a8ff;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .products-header a:hover {
+            background-color: #3a8cd1;
+        }
+
+        .product-list, .feedback-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .product-item, .user-item, .feedback-item {
+            background-color: #323639;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: #eee;
+            font-size: 14px;
+            border: 1px solid #444;
+        }
+
+        .product-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-item:last-child, .user-item:last-child, .feedback-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-button, .delete-button {
+            background-color: #4caf50;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .edit-button:hover {
+            background-color: #45a049;
+        }
+
+        .delete-button {
+            background-color: #d32f2f;
+            padding: 6px 10px;
+        }
+
+        .delete-button:hover {
+            background-color: #c12828;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .feedback-meta {
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .feedback-ratings {
+            margin: 10px 0;
+        }
+
+        .rating-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+            gap: 10px;
+        }
+
+        .stars {
+            color: #ffd700;
+            font-size: 16px;
+        }
+
+        .feedback-comments {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #444;
+            color: #ddd;
+        }
+
+        .empty-message {
+            color: #ccc;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            color: #888;
+            padding: 8px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 0 5px;
+            background-color: #323639;
+        }
+
+        .pagination a:hover {
+            background-color: #444;
+            color: white;
+        }
+
+        .pagination a.active {
+            background-color: #48a8ff;
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2a2d30;
+            color: #888;
+            border-top: 1px solid #444;
+            margin-top: 40px;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .two-column-layout {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <div class="header-section">
+            <h2>Admin Dashboard</h2>
+            <a href="/logout">Logout</a>
+        </div>
+        
+        <div class="two-column-layout">
+            <div class="products-section">
+                <div class="products-header">
+                    <h3>Products</h3>
+                    <a href="/add-product">Add Product</a>
+                </div>
+                {{if .Products}}
+                <ul class="product-list">
+                    {{range .Products}}
+                    <li class="product-item">
+                        <div>
+                            <span class="product-name">{{.Name}}</span> -
+                            <span class="product-price">Rs.{{printf "%.2f" .Price}}</span> -
+                            <span>Stock: {{.Stock}}</span>
+                        </div>
+                        <div class="product-actions">
+                            <form style="margin-left:20px" action="/delete-product" method="post" style="display: inline-block;">
+                                <input type="hidden" name="product_id" value="{{.ID}}">
+                                <button type="submit" class="delete-button">Delete</button>
+                            </form>
+                        </div>
+                    </li>
+                    {{end}}
+                </ul>
+                {{else}}
+                <p class="empty-message">No products available.</p>
+                {{end}}
+            </div>
+
+            <div class="feedback-section">
+                <div class="feedback-header">
+                    <h3>Customer Feedback</h3>
+                </div>
+                {{if .Feedbacks}}
+                <ul class="feedback-list">
+                    {{range .Feedbacks}}
+                    <li class="feedback-item">
+                        <div class="feedback-header">
+                            <div>
+                                <strong>{{.Name}}</strong>
+                                <span style="color: #aaa; margin-left: 10px;">{{.Email}}</span>
+                            </div>
+                            <div class="feedback-meta">
+                                <span>{{.CreatedAt.Format "Jan 2, 2006 15:04"}}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="feedback-ratings">
+                            <div class="rating-group">
+                                <span>Food Quality:</span>
+                                <span class="stars">
+                                    {{if eq .FoodQuality 1}}★☆☆☆☆{{end}}
+                                    {{if eq .FoodQuality 2}}★★☆☆☆{{end}}
+                                    {{if eq .FoodQuality 3}}★★★☆☆{{end}}
+                                    {{if eq .FoodQuality 4}}★★★★☆{{end}}
+                                    {{if eq .FoodQuality 5}}★★★★★{{end}}
+                                </span>
+                                <span>({{.FoodQuality}}/5)</span>
+                            </div>
+                            <div class="rating-group">
+                                <span>Service:</span>
+                                <span class="stars">
+                                    {{if eq .Service 1}}★☆☆☆☆{{end}}
+                                    {{if eq .Service 2}}★★☆☆☆{{end}}
+                                    {{if eq .Service 3}}★★★☆☆{{end}}
+                                    {{if eq .Service 4}}★★★★☆{{end}}
+                                    {{if eq .Service 5}}★★★★★{{end}}
+                                </span>
+                                <span>({{.Service}}/5)</span>
+                            </div>
+                        </div>
+                        
+                        {{if .Comments}}
+                        <div class="feedback-comments">
+                            <strong>Comments:</strong> {{.Comments}}
+                        </div>
+                        {{end}}
+                    </li>
+                    {{end}}
+                </ul>
+                {{else}}
+                <p class="empty-message">No feedback received yet.</p>
+                {{end}}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

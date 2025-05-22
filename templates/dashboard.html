@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu-Smart Canteen</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .products-grid {
+    display: flex;
+    flex-wrap: wrap; /* Allows items to wrap to the next line */
+    overflow-x: visible; /* Allows content to be fully visible, removing horizontal scroll */
+    gap: 20px;
+    margin-top: 30px;
+    padding-bottom: 20px;
+    justify-content: center; /* Center cards if there are fewer than a full row */
+}
+.product-card {
+    background-color: #404347;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Removed fixed flex and min-width to allow more natural wrapping */
+    width: 280px; /* Set a preferred width */
+    max-width: 100%; /* Ensure it doesn't overflow on smaller screens */
+    box-sizing: border-box; /* Include padding and border in the element's total width */
+}
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: #2a2d30;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .product-description {
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        .product-price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #48a8ff;
+            margin-bottom: 10px;
+        }
+        .product-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        .stock-info {
+            color: #4caf50;
+        }
+        .out-of-stock {
+            color: #f44336;
+        }
+        .category-tag {
+            background-color: #323639;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .header-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .welcome-text {
+            color: white;
+            margin: 0;
+        }
+        .empty-store {
+            text-align: center;
+            color: #ccc;
+            font-style: italic;
+            margin-top: 50px;
+        }
+        .add-to-cart-button {
+            background-color: #ff6f61; /* A shade of red */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+            width: 100%; /* Make button fill the card width */
+        }
+
+        .add-to-cart-button:hover {
+            background-color: #e55353; /* Darker shade on hover */
+        }
+
+        .add-to-cart-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* New notification styles */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .notification.error {
+            background-color: #f44336;
+        }
+        
+        .cart-count {
+            background-color: #ff6f61;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            margin-left: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="notification" id="notification">Item added to cart!</div>
+    
+    <div class="container" style="max-width: 1200px;">
+        <div class="header-section">
+            <div>
+                <h2>Our Menu</h2>
+                <p class="welcome-text">Welcome back, {{.Username}}!</p>
+            </div>
+            <div>
+                <a href="/cart" style="margin-right:20px">
+                    Cart
+                  
+                </a>
+                <a href="/logout" style="background-color: #d73027; border-color: #d73027;">Logout</a>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="categoryFilter">Filter by Category:</label>
+            <select class="form-control" id="categoryFilter">
+                <option value="">All Categories</option>
+                <option value="Snacks">Snacks</option>
+                <option value="Drinks">Drinks</option>
+                <option value="Dessert">Dessert</option>
+            </select>
+        </div>
+
+        {{if .Products}}
+        <div class="products-grid" id="productGrid">
+            {{range .Products}}
+            <div class="product-card" data-category="{{.Category}}">
+                <div class="product-image">
+                    {{if .ImageURL}}
+                        <img src="{{.ImageURL}}" alt="{{.Name}}" />
+                    {{else}}
+                        <div style="color: #666; font-size: 48px;">📦</div>
+                    {{end}}
+                </div>
+                <div class="product-name">{{.Name}}</div>
+                {{if .Category}}
+                    <div class="category-tag">{{.Category}}</div>
+                {{end}}
+                <div class="product-description">{{.Description}}</div>
+                <div class="product-price">Rs.{{printf "%.2f" .Price}}</div>
+                <div class="product-info">
+                    <span class="{{if gt .Stock 0}}stock-info{{else}}out-of-stock{{end}}">
+                        {{if gt .Stock 0}}
+                            {{.Stock}} in stock
+                        {{else}}
+                            Out of stock
+                        {{end}}
+                    </span>
+                    <span style="color: #888;">Added {{.CreatedAt.Format "Jan 2"}}</span>
+                </div>
+                <div class="add-to-cart-form">
+                    <button type="button" class="add-to-cart-button" data-product-id="{{.ID}}">Add to Cart</button>
+                </div>
+            </div>
+            {{end}}
+        </div>
+        {{else}}
+        <div class="empty-store">
+            <h3>Store Coming Soon!</h3>
+            <p>We're working hard to bring you amazing products. Check back soon!</p>
+        </div>
+        {{end}}
+    </div>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-button');
+            const notification = document.getElementById('notification');
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Display the notification
+                    notification.textContent = 'Item added to cart!';
+                    notification.classList.remove('error'); // Ensure it's not an error notification
+                    notification.classList.add('show');
+
+                    // Hide the notification after 3 seconds
+                    setTimeout(() => {
+                        notification.classList.remove('show');
+                    }, 3000);
+                });
+            });
+
+            // Category filter logic (existing)
+            const categoryFilter = document.getElementById('categoryFilter');
+            categoryFilter.addEventListener('change', function() {
+                const selectedCategory = this.value;
+                const productCards = document.querySelectorAll('.product-card');
+
+                productCards.forEach(card => {
+                    const productCategory = card.getAttribute('data-category');
+                    if (selectedCategory === "" || productCategory === selectedCategory) {
+                        card.style.display = 'block'; // Or 'flex' depending on your layout
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>
